@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Moderne</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .piano-key {
+      width: 50px;
+      height: 200px;
+      margin: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.1s ease-out, border 0.1s ease;
+      position: relative;
+      border: 1px solid #555;
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
+    }
+
+    .white-key {
+      background-color: #fff;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .black-key {
+      background-color: #333;
+      width: 30px;
+      height: 120px;
+      margin-top: -120px;
+      position: relative;
+      z-index: 1;
+      border: 2px solid #444;
+      border-radius: 0 0 5px 5px;
+    }
+
+    .white-key:hover {
+        background-color: #ececec;
+    }
+
+    .black-key:hover {
+        background-color: #222222;
+    }
+
+    .key-label {
+      color: #555;
+      text-align: center;
+      margin-bottom: 5px;
+      position: relative;
+      z-index: 2;
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .black-key .key-label {
+      color: #fff;
+    }
+
+    .piano-key.pressed {
+      background-color: #ffd700;
+      transform: translateY(5px);
+      border: 2px solid #ffd700;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const pianoKeys = document.querySelectorAll('.piano-key');
+
+  document.addEventListener('keydown', keyDown);
+  document.addEventListener('keyup', keyUp);
+
+  function keyDown(event) {
+    const key = event.key.toLowerCase();
+    const pianoKey = document.querySelector(`[data-key="${key}"]`);
+    if (pianoKey) {
+      pianoKey.classList.add('pressed');
+      playAudio(`${key.toUpperCase()}.wav`);
+    }
+  }
+
+  function keyUp(event) {
+    const key = event.key.toLowerCase();
+    const pianoKey = document.querySelector(`[data-key="${key}"]`);
+    if (pianoKey) {
+      pianoKey.classList.remove('pressed');
+      stopAudio(`${key.toUpperCase()}.wav`);
+    }
+  }
+
+  function playAudio(filename) {
+    const audio = new Audio(filename);
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  function stopAudio(filename) {
+    const audio = new Audio(filename);
+    audio.pause();
+  }
+</script>
+
+<div class="piano-key white-key" data-key="a" onclick="playAudio('piano/Do.wav')">
+  <div class="key-label">Do</div>
+</div>
+<div class="piano-key black-key" data-key="w" onclick="playAudio('piano/dDo.wav')">
+  <div class="key-label">Do#</div>
+</div>
+<div class="piano-key white-key" data-key="s" onclick="playAudio('piano/Ré.wav')">
+  <div class="key-label">Ré</div>
+</div>
+<div class="piano-key black-key" data-key="e" onclick="playAudio('piano/rRé.wav')">
+  <div class="key-label">Ré#</div>
+</div>
+<div class="piano-key white-key" data-key="d" onclick="playAudio('piano/Mi.wav')">
+  <div class="key-label">Mi</div>
+</div>
+<div class="piano-key white-key" data-key="f" onclick="playAudio('piano/Fa.wav')">
+  <div class="key-label">Fa</div>
+</div>
+<div class="piano-key black-key" data-key="t" onclick="playAudio('piano/fFa.wav')">
+  <div class="key-label">Fa#</div>
+</div>
+<div class="piano-key white-key" data-key="g" onclick="playAudio('piano/Sol.wav')">
+  <div class="key-label">Sol</div>
+</div>
+<div class="piano-key black-key" data-key="y" onclick="playAudio('piano/sSol.wav')">
+  <div class="key-label">Sol#</div>
+</div>
+<div class="piano-key white-key" data-key="h" onclick="playAudio('piano/La.wav')">
+  <div class="key-label">La</div>
+</div>
+<div class="piano-key black-key" data-key="u" onclick="playAudio('piano/lLa.wav')">
+  <div class="key-label">La#</div>
+</div>
+<div class="piano-key white-key" data-key="j" onclick="playAudio('piano/Si.wav')">
+  <div class="key-label">Si</div>
+</div>
+
+<audio data-key="a" src="piano/Do.wav"></audio>
+<audio data-key="w" src="piano/dDo.wav"></audio>
+<audio data-key="s" src="piano/Ré.wav"></audio>
+<audio data-key="e" src="piano/rRé.wav"></audio>
+<audio data-key="d" src="piano/Mi.wav"></audio>
+<audio data-key="f" src="piano/Fa.wav"></audio>
+<audio data-key="t" src="piano/fFa.wav"></audio>
+<audio data-key="g" src="piano/Sol.wav"></audio>
+<audio data-key="y" src="piano/sSol.wav"></audio>
+<audio data-key="h" src="piano/La.wav"></audio>
+<audio data-key="u" src="piano/lLa.wav"></audio>
+<audio data-key="j" src="piano/Si.wav"></audio>
+
+</body>
+</html>
